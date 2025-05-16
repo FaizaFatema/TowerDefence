@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 0.5939458, g: 1, b: 0.28773582, a: 1}
   m_FlipX: 0
@@ -119,9 +119,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.1475034}
+  m_Offset: {x: -0.02156043, y: 0.09863186}
   serializedVersion: 2
-  m_Radius: 0.43617007
+  m_Radius: 0.491333
 --- !u!114 &4015994340011569854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +137,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5312785975027239879, guid: 4b13e4faa94d15341bd94abbff182112, type: 3}
   firePoint: {fileID: 8792036216820619345}
   fireRate: 1
+  range: 3
 --- !u!1 &7465030789546173076
 GameObject:
   m_ObjectHideFlags: 0

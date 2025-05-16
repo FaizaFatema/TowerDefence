@@ -22,7 +22,7 @@ public class TowerPlacer : MonoBehaviour
         if(transform.childCount == 0)
         {
             Instantiate(towerPrefab,transform.position, Quaternion.identity,transform);
-           // Destroy(gameObject);
+            GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 }

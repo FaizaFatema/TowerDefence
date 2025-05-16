@@ -6,11 +6,22 @@ public class Enemy : MonoBehaviour
     public Transform[] pathPoints;
     private int targetIndex = 0;
 
+    public EnemyType enemyType;
+    private float baseSpeed;
+    void OnEnable()
+    {
+        if (pathPoints == null || pathPoints.Length == 0)
+            return;
+
+     
+        targetIndex = 0;
+       //    transform.position = pathPoints[0].position;
+    }
     void Update()
     {
         if (targetIndex >= pathPoints.Length) 
         {
-            Destroy(gameObject); 
+           gameObject.SetActive(false);
             return; 
         }
 
@@ -23,4 +34,38 @@ public class Enemy : MonoBehaviour
             targetIndex++;
         }
     }
+    public void SetStatsByType()
+    {
+        switch (enemyType)
+        {
+            case EnemyType.Slow:
+                speed = 1.5f;
+                break;
+            case EnemyType.Normal:
+                speed = 2.5f;
+                break;
+            case EnemyType.Fast:
+                speed = 4.0f;
+                break;
+            case EnemyType.Tank:
+                speed = 1.0f;
+                break;
+            case EnemyType.Boss:
+                speed = 2.0f;
+                break;
+        }
+    }
+    public void ResetEnemy()
+    {
+        targetIndex = 0;
+    }
 }
+public enum EnemyType
+{
+    Slow,
+    Normal,
+    Fast,
+    Tank,
+    Boss
+}
+

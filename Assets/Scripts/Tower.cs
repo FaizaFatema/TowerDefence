@@ -9,14 +9,17 @@ public class Tower : MonoBehaviour
 
     public float fireRate = 1f;         // Kitni der baad fire kare
     private float fireTimer = 0f;       // Countdown timer
+    public float range = 3f;
 
     private GameObject target;          // Jo enemy currently target hai
 
     void Update()
     {
+        FindNearestEnemy();
         // Agar koi enemy range mein hai
         if (target != null)
         {
+           // Debug.Log("Target in range: " + target.name);
             // Agar time ho gaya fire karne ka
             if (fireTimer <= 0f)
             {
@@ -27,7 +30,33 @@ public class Tower : MonoBehaviour
             fireTimer -= Time.deltaTime;  // Time kam karte jao har frame
         }
     }
+    void FindNearestEnemy()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");// Saare enemies scene se le lo jinka tag "Enemy" hai
+        float shortestDistance = Mathf.Infinity;// Sabse chhoti distance ko initially Infinity set karte hain
+        GameObject nearestEnemy = null;// Sabse kareeb enemy ko temporarily null rakhte hain
+        for (int i = 0; i < enemies.Length; i++)
+        {
+        
+            GameObject enemy = enemies[i];
 
+            // Tower aur is enemy ke beech ka distance nikaalo
+            float distance = Vector2.Distance(transform.position, enemy.transform.position);
+
+            // Check karo: kya ye enemy ab tak ki sabse paas hai?
+            // Aur kya ye tower ke range ke andar hai?
+            // Aur kya ye active bhi hai? (i.e. disable nahi hui pooling me)
+            if (distance < shortestDistance && distance <= range && enemy.activeInHierarchy)
+            {
+                // To ye abhi tak ki sabse kareeb enemy hai
+                shortestDistance = distance;
+                nearestEnemy = enemy;
+            }
+        }
+
+        // Loop ke baad, sabse kareeb enemy ko target set kar do
+        target = nearestEnemy;
+    }
     void Shoot()
     {
         // Bullet create karo firePoint position se
@@ -39,17 +68,12 @@ public class Tower : MonoBehaviour
             bullet.Seek(target.transform);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnDrawGizmosSelected()
     {
-        // Agar enemy tower ke range mein aayi
-        if (other.CompareTag("Enemy"))
-            target = other.gameObject;   // usko target bana lo
-    }
+        // Yellow color set karo gizmo ke liye
+        Gizmos.color = Color.yellow;
 
-    void OnTriggerExit2D(Collider2D other)
-    {
-        // Agar enemy bahar chali gayi
-        if (other.CompareTag("Enemy"))
-            target = null;              // target hata do
+        // Tower ke center se ek circle draw karo (2D me radius = range)
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 }

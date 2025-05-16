@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
 
     void HitTarget()
     {
-        Destroy(target.gameObject);  // destroy enemy
+        target.gameObject.SetActive(false); // destroy enemy
         Destroy(gameObject);         // destroy bullet
     }
 }
