@@ -170,3 +170,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  enemyType: 0
+  maxHealth: 3
+  healthBarPrefab: {fileID: 1100575362152732705, guid: d93440e7a218aa3478bb80c3ffe892e5, type: 3}

@@ -1,7 +1,9 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+  //  public EnemyPooler EnemyPooler;
     public Transform spawnPoint;            // Jahan se enemy spawn hogi
     public Transform[] pathPoints;          // Waypoints jo enemy follow karegi
     public float spawnInterval = 2f;        // Har kitne second me spawn ho
@@ -9,11 +11,14 @@ public class EnemySpawner : MonoBehaviour
     private float spawnTimer;
 
     private EnemyPooler enemyPooler;
-    private void Start()
-    {
-      
-        enemyPooler = FindObjectOfType<EnemyPooler>();
-    }
+   private IEnumerator Start()
+   {
+    yield return null; // wait one frame
+    enemyPooler = FindObjectOfType<EnemyManager>()?.GetPooler();
+
+    if (enemyPooler == null)
+        Debug.LogError("EnemyManager or EnemyPooler not found!");
+   }
     void Update()
     {
         spawnTimer -= Time.deltaTime;
@@ -35,11 +40,28 @@ public class EnemySpawner : MonoBehaviour
         EnemyType randomType = GetRandomEnemyType();
         GameObject enemy = enemyPooler.GetEnemy(randomType);
 
-        if (enemy == null) return;
+        if (enemy == null)
+        {
+            Debug.LogError("Enemy is null");
+            return;
+        }
+
+        enemy.transform.position = spawnPoint.position;
 
         Enemy enemyScript = enemy.GetComponent<Enemy>();
+        if (enemyScript == null)
+        {
+            Debug.LogError("Enemy script missing on prefab");
+            return;
+        }
 
-        
+        if (pathPoints == null || pathPoints.Length == 0)
+        {
+            Debug.LogError("Path points not assigned to EnemySpawner");
+            return;
+        }
+
+
         if (enemyScript != null)
         {
             enemyScript.enemyType = randomType;
@@ -47,8 +69,8 @@ public class EnemySpawner : MonoBehaviour
             enemyScript.SetStatsByType();   
             enemyScript.ResetEnemy();// Reset logic
         }
-        enemy.transform.position = spawnPoint.position;
-        enemy.SetActive(true);
+       
+        enemy.SetActive(true);  
     }
    
 }

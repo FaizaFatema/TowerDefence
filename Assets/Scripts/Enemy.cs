@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Enemy : MonoBehaviour
 {
@@ -7,19 +9,31 @@ public class Enemy : MonoBehaviour
     private int targetIndex = 0;
 
     public EnemyType enemyType;
-    private float baseSpeed;
+  
+    public float maxHealth;
+    private float currentHealth;
+
+ 
+    private void Start()
+    {
+        //enemy tower ko btae ke who range me aaya hai    
+    }
     void OnEnable()
     {
-        if (pathPoints == null || pathPoints.Length == 0)
-            return;
-
-     
+        SetStatsByType();
         targetIndex = 0;
-       //    transform.position = pathPoints[0].position;
+        currentHealth = maxHealth;
+        transform.position = pathPoints[0].position;
+
+        if (pathPoints != null && pathPoints.Length > 0)
+        {
+            transform.position = pathPoints[0].position;
+        }
     }
+  
     void Update()
     {
-        if (targetIndex >= pathPoints.Length) 
+        if (pathPoints == null || targetIndex >= pathPoints.Length) 
         {
            gameObject.SetActive(false);
             return; 
@@ -34,24 +48,43 @@ public class Enemy : MonoBehaviour
             targetIndex++;
         }
     }
+    public void TakeDamage(float damage)
+    {
+        //show health baar
+        currentHealth -= damage;
+         if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+   
+    void Die()
+    {
+        gameObject.SetActive(false);
+    }
     public void SetStatsByType()
     {
         switch (enemyType)
         {
             case EnemyType.Slow:
                 speed = 1.5f;
+                maxHealth = 30f;
                 break;
             case EnemyType.Normal:
                 speed = 2.5f;
+                maxHealth = 50f;
                 break;
             case EnemyType.Fast:
                 speed = 4.0f;
+                maxHealth = 20f;
                 break;
             case EnemyType.Tank:
                 speed = 1.0f;
+                maxHealth = 100f;
                 break;
             case EnemyType.Boss:
                 speed = 2.0f;
+                maxHealth = 200f;
                 break;
         }
     }

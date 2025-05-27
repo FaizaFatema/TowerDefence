@@ -144,6 +144,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   enemyType: 2
+  maxHealth: 1
+  healthBarPrefab: {fileID: 1100575362152732705, guid: d93440e7a218aa3478bb80c3ffe892e5, type: 3}
 --- !u!50 &-1942977452350011198
 Rigidbody2D:
   serializedVersion: 4

@@ -32,7 +32,12 @@ public class Bullet : MonoBehaviour
 
     void HitTarget()
     {
-        target.gameObject.SetActive(false); // destroy enemy
-        Destroy(gameObject);         // destroy bullet
+        Enemy enemy = target.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            enemy.TakeDamage(10f); // Bullet 10 damage de rahi hai
+        }
+
+        Destroy(gameObject);        // destroy bullet
     }
 }

@@ -11,63 +11,58 @@ public class EnemyTypePrefab
     public GameObject prefab;
 }
 
-public class EnemyPooler : MonoBehaviour
+public class EnemyPooler
 {
-   
     public List<EnemyTypePrefab> enemyPrefabs;
-
     public int poolSize = 5;
-
 
     private Dictionary<EnemyType, List<GameObject>> enemyPools = new Dictionary<EnemyType, List<GameObject>>();
 
-    // Start is called before the first frame update
-    void Start()
+    // Constructor - Pool setup karta hai
+    public EnemyPooler(List<EnemyTypePrefab> prefabs, int size)
     {
-        for (int i = 0; i < enemyPrefabs.Count; i++)
-        {
-            EnemyTypePrefab entry = enemyPrefabs[i];
-            List<GameObject> pool = new List<GameObject>();
+        enemyPrefabs = prefabs;
+        poolSize = size;
+        InitializePools();
+    }
 
-            for (int j = 0; j < poolSize; j++)
+    // Har enemy type ke liye pool create karta hai
+    public void InitializePools()
+    {
+        foreach (EnemyTypePrefab entry in enemyPrefabs)
+        {
+            List<GameObject> pool = new List<GameObject>();
+            for (int i = 0; i < poolSize; i++)
             {
-                GameObject obj = Instantiate(entry.prefab);
+                GameObject obj = GameObject.Instantiate(entry.prefab);
                 obj.SetActive(false);
                 pool.Add(obj);
             }
-
             enemyPools[entry.type] = pool;
         }
-
     }
+
+    // Pool me se ek inactive enemy object return karta hai
     public GameObject GetEnemy(EnemyType type)
     {
         if (!enemyPools.ContainsKey(type))
             return null;
 
-        List<GameObject> pool = enemyPools[type];
-
-        // pool me dekh lo koi inactive enemy milti hai kya
-        for (int i = 0; i < pool.Count; i++)
+        foreach (GameObject enemy in enemyPools[type])
         {
-            if (!pool[i].activeInHierarchy)
-            {
-                return pool[i]; // mil gayi to return karo
-            }
+            if (!enemy.activeInHierarchy)
+                return enemy;
         }
 
-        // agar koi available nahi thi, to nayi banao, add karo pool me
-        for (int i = 0; i < enemyPrefabs.Count; i++)
+        // Instantiate a new one if pool is exhausted
+        EnemyTypePrefab match = enemyPrefabs.Find(p => p.type == type);
+        if (match != null)
         {
-            if (enemyPrefabs[i].type == type)
-            {
-                GameObject newEnemy = Instantiate(enemyPrefabs[i].prefab);
-                newEnemy.SetActive(false);
-                pool.Add(newEnemy);
-                return newEnemy;
-            }
+            GameObject newEnemy = GameObject.Instantiate(match.prefab);
+            newEnemy.SetActive(false);
+            enemyPools[type].Add(newEnemy);
+            return newEnemy;
         }
-
-        return null; // safety
+        return null;
     }
 }
