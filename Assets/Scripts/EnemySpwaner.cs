@@ -10,9 +10,10 @@ public class EnemySpawner : MonoBehaviour
 
     private EnemyPooler enemyPooler;
     private void Start()
-    {
-      
+    {  
         enemyPooler = FindObjectOfType<EnemyPooler>();
+        SpawnEnemy();
+        spawnTimer = spawnInterval;
     }
     void Update()
     {

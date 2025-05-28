@@ -7,7 +7,8 @@ public class Enemy : MonoBehaviour
     private int targetIndex = 0;
 
     public EnemyType enemyType;
-    private float baseSpeed;
+ 
+    public EnemyHealth enemyHealth;
     void OnEnable()
     {
         if (pathPoints == null || pathPoints.Length == 0)
@@ -40,18 +41,23 @@ public class Enemy : MonoBehaviour
         {
             case EnemyType.Slow:
                 speed = 1.5f;
+                enemyHealth.maxHealth = 30f;
                 break;
             case EnemyType.Normal:
                 speed = 2.5f;
+                enemyHealth.maxHealth = 20f;
                 break;
             case EnemyType.Fast:
                 speed = 4.0f;
+                enemyHealth.maxHealth = 10f;
                 break;
             case EnemyType.Tank:
                 speed = 1.0f;
+                enemyHealth.maxHealth = 100f;
                 break;
             case EnemyType.Boss:
                 speed = 2.0f;
+                enemyHealth.maxHealth = 200f;
                 break;
         }
     }
