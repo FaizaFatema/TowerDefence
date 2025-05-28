@@ -6,9 +6,9 @@ public class EnemyManager : MonoBehaviour
     public List<EnemyTypePrefab> enemyPrefabs;
     private EnemyPooler pooler;
 
-    void Start()
+    void Awake()
     {
-        pooler = new EnemyPooler(enemyPrefabs, 5);  // 5 = pool size
+        pooler = new EnemyPooler(enemyPrefabs, 5);  // Pool size
     }
 
     public EnemyPooler GetPooler()

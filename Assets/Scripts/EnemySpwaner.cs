@@ -11,16 +11,22 @@ public class EnemySpawner : MonoBehaviour
     private float spawnTimer;
 
     private EnemyPooler enemyPooler;
-   private IEnumerator Start()
+
+    private bool isInitialized = false;
+
+    private IEnumerator Start()
    {
     yield return null; // wait one frame
     enemyPooler = FindObjectOfType<EnemyManager>()?.GetPooler();
 
     if (enemyPooler == null)
         Debug.LogError("EnemyManager or EnemyPooler not found!");
-   }
+
+        isInitialized = true;
+    }
     void Update()
     {
+        if (!isInitialized) return;
         spawnTimer -= Time.deltaTime;
 
         if (spawnTimer <= 0f)
