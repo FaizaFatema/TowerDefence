@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -7,23 +8,23 @@ public class Enemy : MonoBehaviour
     private int targetIndex = 0;
 
     public EnemyType enemyType;
- 
+
     public EnemyHealth enemyHealth;
     void OnEnable()
     {
         if (pathPoints == null || pathPoints.Length == 0)
             return;
 
-     
+
         targetIndex = 0;
-       //    transform.position = pathPoints[0].position;
+        //    transform.position = pathPoints[0].position;
     }
     void Update()
     {
-        if (targetIndex >= pathPoints.Length) 
+        if (targetIndex >= pathPoints.Length)
         {
-           gameObject.SetActive(false);
-            return; 
+            gameObject.SetActive(false);
+            return;
         }
 
         Transform targetPoint = pathPoints[targetIndex];
@@ -41,15 +42,15 @@ public class Enemy : MonoBehaviour
         {
             case EnemyType.Slow:
                 speed = 1.5f;
-                enemyHealth.maxHealth = 30f;
+                enemyHealth.maxHealth = 50f;
                 break;
             case EnemyType.Normal:
                 speed = 2.5f;
-                enemyHealth.maxHealth = 20f;
+                enemyHealth.maxHealth = 30f;
                 break;
             case EnemyType.Fast:
                 speed = 4.0f;
-                enemyHealth.maxHealth = 10f;
+                enemyHealth.maxHealth = 20f;
                 break;
             case EnemyType.Tank:
                 speed = 1.0f;
@@ -74,4 +75,3 @@ public enum EnemyType
     Tank,
     Boss
 }
-

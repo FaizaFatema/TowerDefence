@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -10,7 +11,7 @@ public class EnemySpawner : MonoBehaviour
 
     private EnemyPooler enemyPooler;
     private void Start()
-    {  
+    {
         enemyPooler = FindObjectOfType<EnemyPooler>();
         SpawnEnemy();
         spawnTimer = spawnInterval;
@@ -40,16 +41,16 @@ public class EnemySpawner : MonoBehaviour
 
         Enemy enemyScript = enemy.GetComponent<Enemy>();
 
-        
+
         if (enemyScript != null)
         {
             enemyScript.enemyType = randomType;
             enemyScript.pathPoints = pathPoints;  // Waypoints assign karo
-            enemyScript.SetStatsByType();   
+            enemyScript.SetStatsByType();
             enemyScript.ResetEnemy();// Reset logic
         }
         enemy.transform.position = spawnPoint.position;
         enemy.SetActive(true);
     }
-   
+
 }

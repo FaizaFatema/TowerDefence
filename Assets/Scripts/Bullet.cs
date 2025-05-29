@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -32,7 +33,7 @@ public class Bullet : MonoBehaviour
 
     void HitTarget()
     {
-        EnemyHealth enemyHealth=target.GetComponent<EnemyHealth>();
+        EnemyHealth enemyHealth = target.GetComponent<EnemyHealth>();
         if (enemyHealth != null)
         {
             enemyHealth.TakeDamage(10f);
