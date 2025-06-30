@@ -5,16 +5,20 @@ using TMPro;
 
 public class WaveManager : MonoBehaviour
 {
+    public EnemyPooler enemyPooler;
+
     public TextMeshProUGUI waveText;
     public EnemySpawner enemySpawner;
 
-    public int totalWaves = 3;
+    public const int totalWaves = 3;
+
     private int currentWave = 0;
     private bool isSpawning = false;
 
     public GameCompleteUI gameCompleteUI;
 
     public TextMeshProUGUI waveInfoText;
+
   
     private void Start()
     {
@@ -24,7 +28,7 @@ public class WaveManager : MonoBehaviour
     private void Update()
     {
         // Check if all enemies are dead and we're not already spawning
-        if (!isSpawning && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        if (!isSpawning && enemyPooler.GetActiveEnemyCount() == 0)
         {
             if (currentWave < totalWaves)
             {
