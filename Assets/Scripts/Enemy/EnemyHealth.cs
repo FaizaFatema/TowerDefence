@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public float maxHealth;
+    public  float maxHealth;
     private float currentHealth;
 
     public Image healtFillImage;

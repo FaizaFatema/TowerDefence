@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public abstract class Tower : MonoBehaviour
 {
     public GameObject bulletPrefab;     
     public Transform firePoint;         
@@ -19,25 +19,18 @@ public class Tower : MonoBehaviour
       
         if (target != null)
         {
-          
+            Debug.Log(gameObject.name + " has a target: " + target.name);
             if (fireTimer <= 0f)
             {
                 Shoot();               
+                Debug.Log(gameObject.name + " shooting at " + target.name);
                 fireTimer = fireRate;  
             }
 
             fireTimer -= Time.deltaTime;  
         }
     }
-    protected virtual void Shoot()
-    {
-        GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-        BaseBullet bullet = bulletObj.GetComponent<BaseBullet>();
-        if (bullet != null && target != null)
-        {
-            bullet.Seek(target.transform);
-        }
-    }
+    protected abstract void Shoot();
 
     void FindNearestEnemy()
     {

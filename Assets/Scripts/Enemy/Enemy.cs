@@ -10,6 +10,9 @@ public class Enemy : MonoBehaviour
     public EnemyType enemyType;
 
     public EnemyHealth enemyHealth;
+
+    private bool isFrozen = false;
+    private float freezeTimer = 0f;
     void OnEnable()
     {
         if (pathPoints == null || pathPoints.Length == 0)
@@ -21,6 +24,16 @@ public class Enemy : MonoBehaviour
     }
     void Update()
     {
+        if (isFrozen)
+        {
+            freezeTimer -= Time.deltaTime;
+            if (freezeTimer <= 0f)
+            {
+                isFrozen = false;
+            }
+            return; // frozen hai to move nahi karega
+        }
+
         if (targetIndex >= pathPoints.Length)
         {
             gameObject.SetActive(false);
@@ -36,6 +49,7 @@ public class Enemy : MonoBehaviour
             targetIndex++;
         }
     }
+
     public void SetStatsByType()
     {
         switch (enemyType)
@@ -65,6 +79,11 @@ public class Enemy : MonoBehaviour
     public void ResetEnemy()
     {
         targetIndex = 0;
+    }
+    public void Freeze(float duration)
+    {
+        isFrozen = true;
+        freezeTimer = duration;
     }
 }
 public enum EnemyType

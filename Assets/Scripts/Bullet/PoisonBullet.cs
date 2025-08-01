@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PoisonBullet : BaseBullet
 {
-    public float poisonDuration = 3f;       // Total time poison will last
-    public float damagePerSecond = 5f;      // How much damage per second
+    public const float poisonDuration = 3f;       // Total time poison will last
+    public const float damagePerSecond = 5f;      // How much damage per second
 
     protected override void HitTarget()
     {
@@ -11,6 +11,7 @@ public class PoisonBullet : BaseBullet
         if (enemyHealth != null)
         {
             enemyHealth.ApplyPoison(damagePerSecond, poisonDuration);
+           // poisonBullet.Seek(target.transform);
         }
 
         Destroy(gameObject);

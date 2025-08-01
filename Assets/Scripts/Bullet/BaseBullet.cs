@@ -14,6 +14,7 @@ public abstract class BaseBullet : MonoBehaviour
     {
         if (target == null)
         {
+          //  Debug.LogWarning("Bullet has no target!");  
             Destroy(gameObject);
             return;
         }
@@ -21,9 +22,10 @@ public abstract class BaseBullet : MonoBehaviour
         Vector2 dir = target.position - transform.position;
         float distanceThisFrame = speed * Time.deltaTime;
 
-        if (dir.magnitude <= distanceThisFrame)
+        if (Vector2.Distance(transform.position, target.position) < 0.1f)
         {
             HitTarget();
+            Debug.Log("Bullet hit target: " + target.name);
             return;
         }
 

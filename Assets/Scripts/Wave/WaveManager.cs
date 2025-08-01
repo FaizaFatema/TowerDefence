@@ -57,15 +57,16 @@ public class WaveManager : MonoBehaviour
         // Show wave start text
         waveText.text = $"Wave {currentWave} Starting!";
         waveInfoText.text = $"Enemies: {enemyCount}";
-        waveText.gameObject.SetActive(true);
-        waveInfoText.gameObject.SetActive(true);
-      
+
+        waveText.GetComponent<TextMeshProUGUI>().enabled = true; 
+        waveInfoText.GetComponent<TextMeshProUGUI>().enabled = true;
+        
         // Wait for a few seconds so player can read the info
         yield return new WaitForSeconds(2f);
 
         // Hide wave text and info text
-        waveText.gameObject.SetActive(false);
-        waveInfoText.gameObject.SetActive(false);
+        waveText.GetComponent<TextMeshProUGUI>().enabled = false;
+        waveInfoText.GetComponent<TextMeshProUGUI>().enabled = false;
 
         // Spawn enemies for this wave
         yield return StartCoroutine(SpawnWave(currentWave));
@@ -108,18 +109,18 @@ public class WaveManager : MonoBehaviour
 
         foreach (GameObject tower in towers)
         {
-            tower.GetComponent<Tower>().DestroyTower();  
+            tower.GetComponent<Tower>().DestroyTower();  // This now returns to pool instead of destroying
         }
     }
     IEnumerator ShowBossMessage()
     {
         waveText.text = "Boss Incoming!";
-        waveText.gameObject.SetActive(true);
+        waveText.GetComponent<TextMeshProUGUI>().enabled = true;
         waveText.alpha = 1f;
 
         yield return new WaitForSeconds(2f);  // Boss warning duration
 
-        waveText.gameObject.SetActive(false);
+        waveText.GetComponent<TextMeshProUGUI>().enabled = false;
     }
     int GetEnemyCountForWave(int wave)
     {
