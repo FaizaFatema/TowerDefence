@@ -14,8 +14,8 @@ public abstract class BaseBullet : MonoBehaviour
     {
         if (target == null)
         {
-          //  Debug.LogWarning("Bullet has no target!");  
-            Destroy(gameObject);
+            //  Debug.LogWarning("Bullet has no target!");  
+            gameObject.SetActive(false);
             return;
         }
 

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4064995130247209418}
   - component: {fileID: 39719280275402339}
   m_Layer: 0
-  m_Name: Bullet
-  m_TagString: Untagged
+  m_Name: FireBullet
+  m_TagString: FireBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d7f5221eea42d549bf9f511f84d75df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
   damage: 1297.463
   fireSound: {fileID: 8300000, guid: 4ffe61d5282b77f43b41181f14bc6b23, type: 3}
 --- !u!82 &39719280275402339

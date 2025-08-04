@@ -14,6 +14,6 @@ public class PoisonBullet : BaseBullet
            // poisonBullet.Seek(target.transform);
         }
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

@@ -3641,6 +3641,60 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6611059929859043638, guid: 21b7d9f57848aa447a2ad40356955909, type: 3}
   m_PrefabInstance: {fileID: 910837020}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &659801664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 659801666}
+  - component: {fileID: 659801665}
+  m_Layer: 0
+  m_Name: BulletPooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &659801665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659801664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b99adc7d2b4fb4a98f4693a945485c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPools:
+  - tag: FireBullet
+    prefab: {fileID: 5312785975027239879, guid: 4b13e4faa94d15341bd94abbff182112, type: 3}
+    size: 10
+  - tag: FreezeBullet
+    prefab: {fileID: 5312785975027239879, guid: ac7c09e69230e3d4aa41dcc2c07a40b8, type: 3}
+    size: 10
+  - tag: PoisonBullet
+    prefab: {fileID: 5312785975027239879, guid: 6f62179f99246234ab7bf806f2101fb0, type: 3}
+    size: 10
+--- !u!4 &659801666
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659801664}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &664261781 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6611059929859043638, guid: 21b7d9f57848aa447a2ad40356955909, type: 3}
@@ -13497,3 +13551,4 @@ SceneRoots:
   - {fileID: 312460573}
   - {fileID: 730175129}
   - {fileID: 1590006228}
+  - {fileID: 659801666}

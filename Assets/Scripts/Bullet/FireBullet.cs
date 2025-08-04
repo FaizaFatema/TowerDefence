@@ -27,7 +27,7 @@ public class FireBullet : BaseBullet
             enemyHealth.TakeDamage(damage);
         }
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
 }

@@ -13,6 +13,6 @@ public class FreezeBullet : BaseBullet
             enemy.Freeze(freezeDuration);
         }
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

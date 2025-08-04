@@ -10,7 +10,7 @@ public class WaveManager : MonoBehaviour
     public TextMeshProUGUI waveText;
     public EnemySpawner enemySpawner;
 
-    public const int totalWaves = 3;
+    public  int totalWaves = 3;
 
     private int currentWave = 0;
     private bool isSpawning = false;

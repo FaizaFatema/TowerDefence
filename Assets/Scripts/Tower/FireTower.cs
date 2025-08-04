@@ -11,7 +11,7 @@ public class FireTower : Tower
             return;
         }
 
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+        GameObject bullet = BulletPooler.Instance.SpawnFromPool("FireBullet", firePoint.position, Quaternion.identity);
         BaseBullet baseBullet = bullet.GetComponent<BaseBullet>(); // Changed from bulletPrefab to bullet
         
         if (baseBullet != null && target != null)

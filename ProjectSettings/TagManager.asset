@@ -9,6 +9,9 @@ TagManager:
   - FireTower
   - FreezeTower
   - PoisonTower
+  - PoisonBullet
+  - FreezeBullet
+  - FireBullet
   layers:
   - Default
   - TransparentFX
