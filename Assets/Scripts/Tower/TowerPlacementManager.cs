@@ -81,7 +81,7 @@ public class TowerPlacementManager : MonoBehaviour
 
     public void PlaceTower(Transform location, GameObject towerPrefab)
     {
-        Instantiate(towerPrefab, location.position, Quaternion.identity, location);
+        GameObject tower = TowerPooler.Instance.SpawnFromPool(towerPrefab.tag, location.position, Quaternion.identity, location);
         TowerLimitManager.Instance.RegisterTowerPlacement();
         StartCooldown();
     }

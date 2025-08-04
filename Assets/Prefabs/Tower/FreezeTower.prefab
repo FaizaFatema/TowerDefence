@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 1575208640942278057}
   m_Layer: 0
   m_Name: FreezeTower
-  m_TagString: Tower
+  m_TagString: FreezeTower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

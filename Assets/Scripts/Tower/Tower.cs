@@ -67,12 +67,10 @@ public abstract class Tower : MonoBehaviour
     // Jab tower destroy ho raha ho (jaise wave complete hone par)
     public void DestroyTower()
     {
-        // Parent ko dhoondo (jo placement spot hai)
         Transform parentSpot = transform.parent;
 
         if (parentSpot != null)
         {
-            // Parent ka SpriteRenderer wapas enable karo
             SpriteRenderer sr = parentSpot.GetComponent<SpriteRenderer>();
             if (sr != null)
             {
@@ -80,8 +78,7 @@ public abstract class Tower : MonoBehaviour
             }
         }
 
-        // Fir tower destroy karo
-        Destroy(gameObject);
+        gameObject.SetActive(false);
         TowerLimitManager.Instance.ResetTowerCount();
     }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class BaseBullet : MonoBehaviour
 {
     protected Transform target;
-    public float speed = 5f;
+    protected const float speed = 5f;
 
     public void Seek(Transform _target)
     {
