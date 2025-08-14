@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
@@ -10,6 +11,7 @@ public class EnemyTypePrefab
 {
     public EnemyType type;
     public GameObject prefab;
+    public int count;
 }
 
 public class EnemyPooler : MonoBehaviour
@@ -20,65 +22,65 @@ public class EnemyPooler : MonoBehaviour
     public const int poolSize = 5;
 
 
-    private Dictionary<EnemyType, List<GameObject>> enemyPools = new Dictionary<EnemyType, List<GameObject>>();
+    private Dictionary<EnemyType, Queue<GameObject>> enemyQueues = new Dictionary<EnemyType, Queue<GameObject>>();
 
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < enemyPrefabs.Count; i++)
+        foreach (EnemyTypePrefab entry in enemyPrefabs)
         {
-            EnemyTypePrefab entry = enemyPrefabs[i];
-            List<GameObject> pool = new List<GameObject>();
+            Queue<GameObject> queue = new Queue<GameObject>();
 
             for (int j = 0; j < poolSize; j++)
             {
                 GameObject obj = Instantiate(entry.prefab);
                 obj.SetActive(false);
-                pool.Add(obj);
+                queue.Enqueue(obj);
             }
 
-            enemyPools[entry.type] = pool;
+            enemyQueues[entry.type] = queue;
         }
-
     }
     public GameObject GetEnemy(EnemyType type)
     {
-        if (!enemyPools.ContainsKey(type))
+        if (!enemyQueues.ContainsKey(type))
             return null;
+        Queue<GameObject> queue = enemyQueues[type];
 
-        List<GameObject> pool = enemyPools[type];
-
-        // pool me dekh lo koi inactive enemy milti hai kya
-        for (int i = 0; i < pool.Count; i++)
+        int size = queue.Count;
+        for (int i = 0; i < size; i++)
         {
-            if (!pool[i].activeInHierarchy)
+            GameObject enemy = queue.Dequeue(); // Take from front
+            queue.Enqueue(enemy); // Put it back at end
+
+            if (!enemy.activeInHierarchy)
             {
-                return pool[i]; // mil gayi to return karo
+                return enemy;
             }
         }
-
-        // agar koi available nahi thi, to nayi banao, add karo pool me
-        for (int i = 0; i < enemyPrefabs.Count; i++)
-        {
-            if (enemyPrefabs[i].type == type)
-            {
-                GameObject newEnemy = Instantiate(enemyPrefabs[i].prefab);
-                newEnemy.SetActive(false);
-                pool.Add(newEnemy);
-                return newEnemy;
-            }
-        }
-
         return null; // safety
     }
+
+    // agar koi available nahi thi, to nayi banao, add karo pool me
+    //for (int i = 0; i < enemyPrefabs.Count; i++)
+    //{
+    //    if (enemyPrefabs[i].type == type)
+    //    {
+    //        GameObject newEnemy = Instantiate(enemyPrefabs[i].prefab);
+    //        newEnemy.SetActive(false);
+    //        pool.Add(newEnemy);
+    //        return newEnemy;
+    //    }
+    //}
+
     public int GetActiveEnemyCount()
     {
         int count = 0;
-        foreach (var pool in enemyPools.Values)
+        foreach (var queue in enemyQueues.Values)
         {
-            for (int i = 0; i < pool.Count; i++)
+            foreach (var enemy in queue)
             {
-                if (pool[i].activeInHierarchy)
+                if (enemy.activeInHierarchy)
                 {
                     count++;
                 }
