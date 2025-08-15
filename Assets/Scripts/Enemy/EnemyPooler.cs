@@ -23,7 +23,12 @@ public class EnemyPooler : MonoBehaviour
 
 
     private Dictionary<EnemyType, Queue<GameObject>> enemyQueues = new Dictionary<EnemyType, Queue<GameObject>>();
+    public static EnemyPooler Instance;
 
+    void Awake()
+    {
+        Instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -51,28 +56,24 @@ public class EnemyPooler : MonoBehaviour
         for (int i = 0; i < size; i++)
         {
             GameObject enemy = queue.Dequeue(); // Take from front
-            queue.Enqueue(enemy); // Put it back at end
+           // queue.Enqueue(enemy); // Put it back at end
 
             if (!enemy.activeInHierarchy)
             {
                 return enemy;
             }
+            queue.Enqueue(enemy);
         }
         return null; // safety
     }
-
-    // agar koi available nahi thi, to nayi banao, add karo pool me
-    //for (int i = 0; i < enemyPrefabs.Count; i++)
-    //{
-    //    if (enemyPrefabs[i].type == type)
-    //    {
-    //        GameObject newEnemy = Instantiate(enemyPrefabs[i].prefab);
-    //        newEnemy.SetActive(false);
-    //        pool.Add(newEnemy);
-    //        return newEnemy;
-    //    }
-    //}
-
+    public void ReturnEnemyToPool(EnemyType type, GameObject enemy)
+    {
+        enemy.SetActive(false);
+        if (enemyQueues.ContainsKey(type))
+        {
+            enemyQueues[type].Enqueue(enemy);
+        }
+    }
     public int GetActiveEnemyCount()
     {
         int count = 0;

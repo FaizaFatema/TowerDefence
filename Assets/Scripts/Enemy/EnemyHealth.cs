@@ -59,8 +59,9 @@ public class EnemyHealth : MonoBehaviour
          }*/
         
         ScoreManager.Instance?.AddScore(10);
-        gameObject.SetActive(false);
-
+        //gameObject.SetActive(false);
+        EnemyType type = GetComponent<Enemy>().enemyType;
+        EnemyPooler.Instance.ReturnEnemyToPool(type, gameObject);
     }
     public void ApplyPoison(float damagePerSecond, float duration)
     {
