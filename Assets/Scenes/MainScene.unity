@@ -3519,9 +3519,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da02c603f73226744aad99b05c15b0ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPooler: {fileID: 0}
+  enemyPooler: {fileID: 1496275354}
   waveText: {fileID: 1168293351}
   enemySpawner: {fileID: 534024018}
+  totalWaves: 3
   gameCompleteUI: {fileID: 24482305}
   waveInfoText: {fileID: 1127437174}
 --- !u!4 &614759563
@@ -8755,14 +8756,35 @@ MonoBehaviour:
   enemyPrefabs:
   - type: 1
     prefab: {fileID: 1550654167083973367, guid: c51cf58a3600b654487619dea219ba41, type: 3}
+    count: 5
   - type: 0
     prefab: {fileID: 4405434815828950972, guid: 39f6cd330343f604387c73df7b9a718f, type: 3}
+    count: 5
   - type: 2
     prefab: {fileID: 1550654167083973367, guid: 2a33495b7fe346044890f687e0b53cf5, type: 3}
+    count: 5
   - type: 3
     prefab: {fileID: 1550654167083973367, guid: 9a489d2f242daa54da4f0dd1c5f6e946, type: 3}
+    count: 5
   - type: 4
     prefab: {fileID: 1550654167083973367, guid: 2ae9d3e8943b9374db5d761f83d66877, type: 3}
+    count: 5
+  poolInfo:
+  - type: 0
+    prefabName: SlowEnemy
+    totalInPool: 0
+  - type: 1
+    prefabName: NormalEnemy
+    totalInPool: 0
+  - type: 2
+    prefabName: FastEnemy
+    totalInPool: 0
+  - type: 3
+    prefabName: TankEnemy
+    totalInPool: 0
+  - type: 4
+    prefabName: BossEnemy
+    totalInPool: 0
 --- !u!1001 &1502235294
 PrefabInstance:
   m_ObjectHideFlags: 0

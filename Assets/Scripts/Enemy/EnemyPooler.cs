@@ -13,7 +13,13 @@ public class EnemyTypePrefab
     public GameObject prefab;
     public int count;
 }
-
+[System.Serializable]
+public class EnemyPoolInfo
+{
+    public EnemyType type;
+    public string prefabName;
+    public int totalInPool;   // runtime me count
+}
 public class EnemyPooler : MonoBehaviour
 {
 
@@ -24,6 +30,10 @@ public class EnemyPooler : MonoBehaviour
 
     private Dictionary<EnemyType, Queue<GameObject>> enemyQueues = new Dictionary<EnemyType, Queue<GameObject>>();
     public static EnemyPooler Instance;
+
+    [Header("Enemy Pool Info (Runtime ReadOnly)")]
+    public List<EnemyPoolInfo> poolInfo = new List<EnemyPoolInfo>();
+
 
     void Awake()
     {
@@ -45,6 +55,11 @@ public class EnemyPooler : MonoBehaviour
 
             enemyQueues[entry.type] = queue;
         }
+        UpdatePoolInfo();
+    }
+    void Update()
+    {
+        UpdatePoolInfo(); // har frame runtime count update
     }
     public GameObject GetEnemy(EnemyType type)
     {
@@ -88,5 +103,21 @@ public class EnemyPooler : MonoBehaviour
             }
         }
         return count;
+    }
+    private void UpdatePoolInfo()
+    {
+        poolInfo.Clear();
+
+        foreach (var entry in enemyPrefabs)
+        {
+            if (!enemyQueues.ContainsKey(entry.type)) continue;
+
+            poolInfo.Add(new EnemyPoolInfo
+            {
+                type = entry.type,
+                prefabName = entry.prefab != null ? entry.prefab.name : "Null",
+                totalInPool = enemyQueues[entry.type].Count
+            });
+        }
     }
 }
